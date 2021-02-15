@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.e.paintclicker.R
 import com.e.paintclicker.databinding.FragmentClickBinding
 import com.e.paintclicker.databinding.FragmentRankingBinding
@@ -41,8 +43,23 @@ class ClickFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentClickBinding.inflate(inflater, container, false)
+
+
+
+
+
+        context?.let {
+
+
+            val opgl = OpenglCanvas(it)
+            opgl.layoutParams = binding.vMain.layoutParams
+
+
+
+            binding.root.addView(opgl) }
+
         val view = binding.root
-        // Inflate the layout for this fragment
+
         return view
     }
 

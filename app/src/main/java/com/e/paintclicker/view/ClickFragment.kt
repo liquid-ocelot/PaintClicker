@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.e.paintclicker.R
 import com.e.paintclicker.databinding.FragmentClickBinding
-import com.e.paintclicker.databinding.FragmentRankingBinding
+import com.e.paintclicker.view.opengl.OpenglCanvas
+import java.lang.ref.WeakReference
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,14 +52,17 @@ class ClickFragment : Fragment() {
             val opgl = OpenglCanvas(it)
             opgl.layoutParams = binding.vMain.layoutParams
 
-
-
             binding.root.addView(opgl) }
+
+
 
         val view = binding.root
 
         return view
     }
+
+
+
 
     companion object {
         /**

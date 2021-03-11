@@ -13,6 +13,7 @@ public class TabAdapter(private val myContext: Context, fm: FragmentManager, int
         when (position) {
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
+
                 return RankingFragment()
             }
             1 -> {
@@ -20,6 +21,7 @@ public class TabAdapter(private val myContext: Context, fm: FragmentManager, int
             }
             2 -> {
                 // val movieFragment = MovieFragment()
+
                 return ShopFragment()
             }
             else -> return ClickFragment()

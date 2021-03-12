@@ -76,7 +76,9 @@ class SpriteManager (val context: Context){
 
 
     public fun add(sprite: Sprite){
-        spriteList.addElement(sprite)
+        synchronized(spriteList) {
+            spriteList.addElement(sprite)
+        }
     }
 
     public fun remove(sprite: Sprite){
@@ -116,6 +118,10 @@ class SpriteManager (val context: Context){
             GLES20.glEnableVertexAttribArray(tCoordPos)
 
             for (s in spriteList) {
+
+                if(!s.textureLoaded){
+                    s.loadTextureFromAssets(context)
+                }
 
                 // Prepare the triangle coordinate data
                 GLES20.glVertexAttribPointer(

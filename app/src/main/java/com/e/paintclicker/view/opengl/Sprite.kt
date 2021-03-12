@@ -14,7 +14,8 @@ import java.nio.FloatBuffer
 class Sprite {
 
     var mBaseMapTexId = 0
-
+    var textureLoaded = false
+    var textureName = ""
 
     val COORDS_PER_VERTEX = 3
 
@@ -128,6 +129,18 @@ class Sprite {
         GLES20.glTexParameteri ( GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT )
 
         mBaseMapTexId = textureId[0]
+        textureLoaded = true
 
+    }
+
+    public fun loadTextureFromAssets(context: Context){
+        var bitmap: Bitmap? = null
+        var ins: InputStream? = null
+
+        ins = context.assets.open(textureName)
+
+        bitmap = BitmapFactory.decodeStream(ins)
+
+        loadTexture(bitmap)
     }
 }

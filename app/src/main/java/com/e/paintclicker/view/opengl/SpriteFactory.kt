@@ -64,7 +64,8 @@ class SpriteFactory(val context: Context, val spriteManager: SpriteManager, val 
 
             rSprite.textureCoords = textureCoords
 
-            rSprite.loadTexture(bitmap)
+            //rSprite.loadTexture(bitmap)
+            rSprite.textureName = textureFile
 
             spriteManager.add(rSprite)
 

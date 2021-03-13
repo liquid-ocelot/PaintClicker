@@ -73,6 +73,8 @@ class MyGLRenderer(val context: Context ,val view: WeakReference<OpenglCanvas>) 
     private var spriteManager: SpriteManager? = null
     private var _spriteFactory: SpriteFactory? = null
     val spriteFactory get() = _spriteFactory!!
+    var _background: Background? = null
+    val background get() = _background!!
 
     val drawLock = ReentrantLock()
     val drawCondition = drawLock.newCondition()
@@ -90,8 +92,10 @@ class MyGLRenderer(val context: Context ,val view: WeakReference<OpenglCanvas>) 
             GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 //draw your foreground scene here
 
+            background.draw()
 
             spriteManager!!.draw()
+
             GLES20.glDisable(GLES20.GL_BLEND);
             drawCondition.signal()
         }
@@ -113,6 +117,8 @@ class MyGLRenderer(val context: Context ,val view: WeakReference<OpenglCanvas>) 
         spriteManager = SpriteManager(context)
         _spriteFactory = SpriteFactory(context, spriteManager!!, screenWidth!!, screenHeight!!)
         spriteFactory.sprite(0,0,0.0f, "t1.png")
+        _background = Background(context)
+
         //spriteFactory.sprite(50,0,0.0f, "t1.png")
         //view.get()?.addSprite(150,0,0.0f, "t1.png")
 

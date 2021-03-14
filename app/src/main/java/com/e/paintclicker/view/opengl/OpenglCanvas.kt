@@ -33,9 +33,16 @@ class OpenglCanvas(context: Context) : GLSurfaceView(context) {
     val lock = ReentrantLock()
     val condition = lock.newCondition()
 
-    fun addSprite(x: Int, y: Int, layer_z: Float, textureFile: String): Sprite{
+    fun addSprite(x: Int, y: Int, layer_z: Float, textureFile: String, scale: Int = 1): Sprite{
 
-            return spriteFactory.sprite(x, y, layer_z, textureFile)
+            return spriteFactory.sprite(x, y, layer_z, textureFile, scale)
+
+
+    }
+
+    fun addSprite(x0: Int, y0: Int,x1: Int, y1: Int, x2: Int, y2: Int, x3: Int, y3: Int ,layer_z: Float, textureFile: String): Sprite{
+
+        return spriteFactory.sprite(x0, y0,x1, y1, x2, y2, x3, y3 ,layer_z, textureFile)
 
 
     }
@@ -116,7 +123,6 @@ class MyGLRenderer(val context: Context ,val view: WeakReference<OpenglCanvas>) 
 
         spriteManager = SpriteManager(context)
         _spriteFactory = SpriteFactory(context, spriteManager!!, screenWidth!!, screenHeight!!)
-        spriteFactory.sprite(0,0,0.0f, "t1.png")
         _background = Background(context)
 
         //spriteFactory.sprite(50,0,0.0f, "t1.png")

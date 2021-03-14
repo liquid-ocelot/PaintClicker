@@ -92,14 +92,21 @@ class ClickFragment : Fragment(), Runnable {
         }
 
 
-        Log.i("opengl", "test")
+        val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
+//        val painting = opgl.addSprite(300 + 11*2, 60 + 119 * 2,
+//                                      300 + 20 * 2, 60 + 188 * 2,
+//                                        300 + 96 * 2, 60 + 91 *2,
+//                                        300 + 111 * 2, 60 +  170 * 2, 0.1f, "painting1.jpg")
 
-        opgl.addSprite(300,0,0.0f, "t1.png")
+        val painting = opgl.addSprite(300 + 11*2, 60 + 118 * 2,
+                                      300 + 20 * 2, 60 + 189 * 2,
+                                        300 + 97 * 2, 60 + 90 *2,
+                                        300 + 113 * 2, 60 +  171 * 2, 0.1f, "painting1.jpg")
 
 
 
 
-        while(drawing){
+                while(drawing){
             opgl.requestRender()
             opgl.renderer.drawLock.withLock {
                 opgl.renderer.drawCondition.await()

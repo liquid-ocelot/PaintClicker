@@ -16,6 +16,7 @@ class Sprite {
     var mBaseMapTexId = 0
     var textureLoaded = false
     var textureName = ""
+    var isVisible =true
 
     val COORDS_PER_VERTEX = 3
 

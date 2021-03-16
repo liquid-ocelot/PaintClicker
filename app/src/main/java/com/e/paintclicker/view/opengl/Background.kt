@@ -66,7 +66,7 @@ class Background (val context: Context){
 
         }
 
-        sprite = setUpBackground("geometrized_image.png")
+        sprite = setUpBackground("background2.png")
 
 
 

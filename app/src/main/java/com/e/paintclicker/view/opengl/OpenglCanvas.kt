@@ -9,6 +9,7 @@ import android.opengl.GLSurfaceView
 import android.opengl.GLU
 import android.opengl.GLUtils
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import java.io.IOException
 import java.io.InputStream
@@ -25,7 +26,7 @@ const val COORDS_PER_VERTEX = 3
 
 
 
-class OpenglCanvas(context: Context) : GLSurfaceView(context) {
+open class OpenglCanvas(context: Context) : GLSurfaceView(context) {
 
     val renderer: MyGLRenderer
     val spriteFactory get() = renderer.spriteFactory
@@ -64,6 +65,8 @@ class OpenglCanvas(context: Context) : GLSurfaceView(context) {
         setRenderer(renderer)
         renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
     }
+
+
 
 
 

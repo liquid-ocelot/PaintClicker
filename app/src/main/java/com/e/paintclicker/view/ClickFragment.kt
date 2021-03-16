@@ -35,6 +35,8 @@ class ClickFragment : Fragment(), Runnable {
     lateinit var opgl: OpenglCanvas
     var drawing = false
     lateinit var thread: Thread
+    var rendererInitialized = false
+    var spriteInitialized = false
 
     var currentHiding = 0
     val hidingList: ArrayList<Sprite> = ArrayList<Sprite>()
@@ -103,48 +105,56 @@ class ClickFragment : Fragment(), Runnable {
     override fun onResume() {
         super.onResume()
         drawing = true
+
         thread = Thread(this)
         thread.start()
     }
 
 
     override fun run() {
+        if(!rendererInitialized){
         opgl.lock.withLock {
             opgl.condition.await()
+        }
+            rendererInitialized = true
         }
         opgl.renderer.drawLock.withLock {
             opgl.renderer.drawCondition.await()
         }
 
 
-        val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
+        if(!spriteInitialized) {
+            val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
 
-        val painting = opgl.addSprite(300 + 11*2, 60 + 118 * 2,
-                                      300 + 20 * 2, 60 + 189 * 2,
-                                        300 + 97 * 2, 60 + 90 *2,
-                                        300 + 113 * 2, 60 +  171 * 2, 0.1f, "painting1.jpg")
-        val hiding9 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.11f, "canvasProgress/progress9.png")
-        val hiding8 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.12f, "canvasProgress/progress8.png")
-        val hiding7 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.13f, "canvasProgress/progress7.png")
-        val hiding6 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.14f, "canvasProgress/progress6.png")
-        val hiding5 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.15f, "canvasProgress/progress5.png")
-        val hiding4 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.16f, "canvasProgress/progress4.png")
-        val hiding3 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.17f, "canvasProgress/progress3.png")
-        val hiding2 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.18f, "canvasProgress/progress2.png")
-        val hiding1 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.19f, "canvasProgress/progress1.png")
-        val hiding0 = opgl.addSprite(300 + 11*2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 *2, 300 + 113 * 2, 60 +  171 * 2, 0.2f, "canvasProgress/progress0.png")
+            val painting = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2,
+                    300 + 20 * 2, 60 + 189 * 2,
+                    300 + 97 * 2, 60 + 90 * 2,
+                    300 + 113 * 2, 60 + 171 * 2, 0.1f, "painting1.jpg")
+            val hiding9 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.11f, "canvasProgress/progress9.png")
+            val hiding8 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.12f, "canvasProgress/progress8.png")
+            val hiding7 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.13f, "canvasProgress/progress7.png")
+            val hiding6 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.14f, "canvasProgress/progress6.png")
+            val hiding5 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.15f, "canvasProgress/progress5.png")
+            val hiding4 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.16f, "canvasProgress/progress4.png")
+            val hiding3 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.17f, "canvasProgress/progress3.png")
+            val hiding2 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.18f, "canvasProgress/progress2.png")
+            val hiding1 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.19f, "canvasProgress/progress1.png")
+            val hiding0 = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2, 300 + 20 * 2, 60 + 189 * 2, 300 + 97 * 2, 60 + 90 * 2, 300 + 113 * 2, 60 + 171 * 2, 0.2f, "canvasProgress/progress0.png")
 
 
-        hidingList.add(hiding0)
-        hidingList.add(hiding1)
-        hidingList.add(hiding2)
-        hidingList.add(hiding3)
-        hidingList.add(hiding4)
-        hidingList.add(hiding5)
-        hidingList.add(hiding6)
-        hidingList.add(hiding7)
-        hidingList.add(hiding8)
-        hidingList.add(hiding9)
+            hidingList.add(hiding0)
+            hidingList.add(hiding1)
+            hidingList.add(hiding2)
+            hidingList.add(hiding3)
+            hidingList.add(hiding4)
+            hidingList.add(hiding5)
+            hidingList.add(hiding6)
+            hidingList.add(hiding7)
+            hidingList.add(hiding8)
+            hidingList.add(hiding9)
+
+            spriteInitialized = true
+        }
 
 
 

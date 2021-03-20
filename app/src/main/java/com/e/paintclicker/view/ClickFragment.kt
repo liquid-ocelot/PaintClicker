@@ -92,6 +92,7 @@ class ClickFragment : Fragment(), Runnable {
         }
 
 
+
         Log.i("opengl", "test")
 
         opgl.addSprite(300,0,0.0f, "t1.png")

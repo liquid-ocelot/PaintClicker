@@ -27,11 +27,7 @@ import kotlin.random.Random
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ClickFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ClickFragment : Fragment(), Runnable {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -117,7 +113,7 @@ class ClickFragment : Fragment(), Runnable {
         thread.start()
     }
 
-
+//game loop
     override fun run() {
         if(!rendererInitialized){
         opgl.lock.withLock {
@@ -130,7 +126,7 @@ class ClickFragment : Fragment(), Runnable {
         }
 
 
-
+//sprite initialization for opengl
         if(!spriteInitialized) {
             val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
 
@@ -205,11 +201,12 @@ class ClickFragment : Fragment(), Runnable {
             }
         }
     }
-
+    //runs on every click of the opengl
     fun clickLogic(){
         for (i in 1..GameDataSingleton.clickAmount){
             //Painting Completed
             if(currentHiding >= 10){
+                //add strokes
                 for(s in hidingList) {
                     s.isVisible = true;
                 }
@@ -218,13 +215,14 @@ class ClickFragment : Fragment(), Runnable {
                 //Gain a painting
                 GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=1
                 binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()
-                //Gain artBucks by selling painting
+                //Gain artBucks when completing a painting
                 if(GameDataSingleton.canSellPaintings) {
                     GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount += GameDataSingleton.paintingWorth+GameDataSingleton.paintingWorth*(GameDataSingleton.sellingUpgrade*GameDataSingleton.sellingLevel)
                     binding.currencyArtBucksTextView.text=GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount.toString()
                 }
             }
             else {
+                //reset the strokes on the painting
                 hidingList[currentHiding].isVisible = false
                 currentHiding++
                 GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount +=GameDataSingleton.sponsorGain*GameDataSingleton.sponsorLevel
@@ -234,7 +232,7 @@ class ClickFragment : Fragment(), Runnable {
         }
     }
 
-
+    //change the current painting
     fun changePainting(){
         val file = paintingList[Random.Default.nextInt(0, 10)]
         painting!!.textureName = file

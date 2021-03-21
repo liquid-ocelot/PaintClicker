@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ShopFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/shopLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="ArtBucks Shop"
+                android:tag="startVisible"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/getBetterAtArtItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="Train Yourself : Sell paintings for more"
+                app:enabled="true"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="50"
+                app:buttonTag="getBetterAtArtItem"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/upgradeToolsItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="Upgrade Tools : clicks make more brush strokes"
+                app:enabled="true"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="5"
+                app:buttonTag="upgradeToolsItem"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/upgradeApprenticeItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="Apprentice : gain paintings as time passes by"
+                app:enabled="true"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="200"
+                app:buttonTag="upgradeApprenticeItem"/>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Painting Shop"
+                android:tag="startVisible"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/sellPaintingsUnlockItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="Become famous enough to sell paintings"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="10"
+                android:tag="startVisible"
+                app:buttonTag="sellPaintingsUnlockItem"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/upgradeSponsorItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:description="Sponsors : gain ArtBucks on each stroke"
+                app:enabled="true"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="20"
+                app:buttonTag="upgradeSponsorItem"/>
+
+            <ListView
+                android:id="@+id/upgradeObtainedListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:tag="startVisible">
+
+            </ListView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

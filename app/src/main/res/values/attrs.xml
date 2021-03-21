@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShopItemView">
+        <attr name="enabled" format="boolean"/>
+        <attr name="icon" format="reference"/>
+        <attr name="description" format="string"/>
+        <attr name="level" format="integer"/>
+        <attr name="price" format="integer"/>
+        <attr name="buttonTag" format="string"/>
+    </declare-styleable>
+</resources>

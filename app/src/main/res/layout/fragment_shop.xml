@@ -21,7 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="ArtBucks Shop" />
+                android:text="ArtBucks Shop"
+                android:tag="startVisible"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/getBetterAtArtItem"
@@ -32,7 +33,7 @@
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
                 app:price="50"
-                android:tag="getBetterAtArtItem"/>
+                app:buttonTag="getBetterAtArtItem"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/upgradeToolsItem"
@@ -43,7 +44,7 @@
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
                 app:price="5"
-                android:tag="upgradeToolsItem"/>
+                app:buttonTag="upgradeToolsItem"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/upgradeApprenticeItem"
@@ -54,7 +55,7 @@
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
                 app:price="200"
-                android:tag="upgradeApprenticeItem"/>
+                app:buttonTag="upgradeApprenticeItem"/>
 
             <TextView
                 android:id="@+id/textView4"
@@ -62,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Painting Shop" />
+                android:text="Painting Shop"
+                android:tag="startVisible"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/sellPaintingsUnlockItem"
@@ -72,7 +74,8 @@
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
                 app:price="10"
-                android:tag="sellPaintingsUnlockItem"/>
+                android:tag="startVisible"
+                app:buttonTag="sellPaintingsUnlockItem"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/upgradeSponsorItem"
@@ -83,13 +86,14 @@
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
                 app:price="20"
-                android:tag="upgradeSponsorItem"/>
+                app:buttonTag="upgradeSponsorItem"/>
 
             <ListView
                 android:id="@+id/upgradeObtainedListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:tag="startVisible">
 
             </ListView>
 

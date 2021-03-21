@@ -6,5 +6,6 @@
         <attr name="description" format="string"/>
         <attr name="level" format="integer"/>
         <attr name="price" format="integer"/>
+        <attr name="buttonTag" format="string"/>
     </declare-styleable>
 </resources>

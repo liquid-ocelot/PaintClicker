@@ -44,6 +44,7 @@ class ShopItemComponent (
         textView.text = attributes.getString(R.styleable.ShopItemView_description)
         level.text=attributes.getString(R.styleable.ShopItemView_level)
         buy.text=attributes.getString(R.styleable.ShopItemView_price)
+        buy.tag=attributes.getString(R.styleable.ShopItemView_buttonTag)
         attributes.recycle()
 
     }

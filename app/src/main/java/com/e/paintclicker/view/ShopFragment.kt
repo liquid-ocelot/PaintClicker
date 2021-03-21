@@ -55,6 +55,7 @@ class ShopFragment : Fragment() {
         val view = binding.root
         // Inflate the layout for this fragment
 
+        //binding.sellPaintingsUnlockItem.findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener { onBuyClick(it) }
 //shopLinearLayout
         //act on every
         for (i in 0..view.findViewById<LinearLayout>(R.id.shopLinearLayout).childCount){
@@ -62,12 +63,12 @@ class ShopFragment : Fragment() {
             if(element is ShopItemComponent){
 
                 //link all OnClicks of the shopItems to the onBuyClick function
-                (element as ShopItemComponent).getBuyButton().setOnClickListener { onBuyClick(it) }
-
+                (element as ShopItemComponent).findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener { onBuyClick(it) }
+                (element as ShopItemComponent).findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener(
+                    View.OnClickListener { onBuyClick(it) })
                 //only show items we want, hide the others
                 when(element.tag){
-                    "sellPaintingsUnlockItem"->element.visibility=View.VISIBLE
-                    "upgradeToolsItem"->element.visibility=View.VISIBLE
+                    "startVisible"->element.visibility=View.VISIBLE
                     else->{
                         element.visibility=View.INVISIBLE
                         element.visibility=View.GONE

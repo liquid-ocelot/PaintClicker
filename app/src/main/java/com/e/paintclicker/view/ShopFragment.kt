@@ -58,21 +58,15 @@ class ShopFragment : Fragment() {
         val view = binding.root
         // Inflate the layout for this fragment
 
+        //check if necessary to load data from the singleton
         var setupAsUsual:Boolean=true
         var directory: File
-        /*if(false){
-            directory= File(activity?.applicationContext?.getExternalFilesDir(null),"saves")
-        }
-        else{
-            directory= File(activity?.applicationContext?.filesDir,"saves")
-        }*/
         val file= File(activity?.applicationContext?.filesDir, GameDataSingleton.playerName+".txt")
         if(file.exists()){
             setupAsUsual=false
         }
-        //binding.sellPaintingsUnlockItem.findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener { onBuyClick(it) }
-//shopLinearLayout
-        //act on every
+
+        //act on every shop items to set them up
         for (i in 0..view.findViewById<LinearLayout>(R.id.shopLinearLayout).childCount){
             val element=view.findViewById<LinearLayout>(R.id.shopLinearLayout).getChildAt(i)
             if(element is ShopItemComponent){
@@ -113,7 +107,7 @@ class ShopFragment : Fragment() {
         return view
     }
 
-    //Do stuff when the player presses a buy button
+    //Do stuff (upgrade, unlock upgrades, etc) when the player presses a buy button
     private fun onBuyClick(view:View){
         when(view.tag){
             "getBetterAtArtItem"->if(GameDataSingleton.currencies[currencyEnum.Paintings.index].amount>=5f*1.1f.pow(GameDataSingleton.sellingLevel)){

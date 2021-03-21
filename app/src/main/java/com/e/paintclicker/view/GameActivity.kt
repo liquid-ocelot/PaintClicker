@@ -1,11 +1,16 @@
 package com.e.paintclicker.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
-import com.e.paintclicker.R
+import androidx.appcompat.app.AppCompatActivity
+import com.e.paintclicker.control.GameDataSingleton
 import com.e.paintclicker.control.TabAdapter
 import com.e.paintclicker.databinding.ActivityGameBinding
 import com.google.android.material.tabs.TabLayout
+import java.io.File
+import java.io.FileOutputStream
+import java.io.ObjectOutputStream
 
 class GameActivity : AppCompatActivity() {
 
@@ -40,6 +45,30 @@ class GameActivity : AppCompatActivity() {
             }
         })
 
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        var directory:File
+        //check permissions for external storage
+        /*if(false){
+            directory=File( applicationContext.getExternalFilesDir(null),"saves")
+        }
+        else{
+            directory=File(applicationContext.filesDir,"saves")
+        }*/
+        val file=File(applicationContext.filesDir,GameDataSingleton.playerName+".txt")
+        if(!file.exists()){
+            file.createNewFile()
+        }
+        val fos: FileOutputStream = FileOutputStream(file) //applicationContext.openFileOutput(file.path, Context.MODE_PRIVATE)
+        val os = ObjectOutputStream(fos)
+
+        os.writeObject(GameDataSingleton.GetDataToSave())
+        os.close()
+        fos.close()
 
     }
 }

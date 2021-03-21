@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.e.paintclicker.control.GameDataSingleton
 import com.e.paintclicker.control.currencyEnum
 import com.e.paintclicker.databinding.FragmentClickBinding
@@ -168,18 +169,20 @@ class ClickFragment : Fragment(), Runnable {
         var clickTimer:Int=0
         //Core game logic (drawing, var modification, etc
         while(drawing){
-
+            binding.currencyArtBucksTextView.post{binding.currencyArtBucksTextView.text=GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount.toString()}
+            binding.currencyPaintingTextView.post{binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()}
             //every second, run game logic
             if(registeredTime+1000<=Calendar.getInstance().timeInMillis){
                 registeredTime=Calendar.getInstance().timeInMillis
-                if(apprenticeTime>=10){
+                if(apprenticeTime>9){
                     apprenticeTime=0
                     GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=GameDataSingleton.apprenticeLevel
                 }
                 else{
                     apprenticeTime+=1
                 }
-                if(clickTimer>=10){
+                //possible upgrade but bugged
+                /*if(clickTimer>=10){
                     clickTimer=0
                     val temp= GameDataSingleton.clickAmount
                     GameDataSingleton.clickAmount=1
@@ -188,7 +191,7 @@ class ClickFragment : Fragment(), Runnable {
                 }
                 else{
                     clickTimer+=1
-                }
+                }*/
 
 
 
@@ -225,6 +228,7 @@ class ClickFragment : Fragment(), Runnable {
                 hidingList[currentHiding].isVisible = false
                 currentHiding++
                 GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount +=GameDataSingleton.sponsorGain*GameDataSingleton.sponsorLevel
+                binding.currencyArtBucksTextView.text=GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount.toString()
             }
 
         }

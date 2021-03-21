@@ -19,7 +19,7 @@ object GameDataSingleton{
     public var apprenticeLevel:Int=0
         //the multiplier and amount per multiplier for the amount of money gained
     public var sellingLevel:Int=0
-    public var sellingUpgrade:Float=0.5f
+    public var sellingUpgrade:Float=0.05f
 
     //Global Ameliorations Unlocks
     public var canSellPaintings:Boolean=false
@@ -33,6 +33,25 @@ object GameDataSingleton{
         enumValues<currencyEnum>().forEach {
             currencies=currencies+listOf(Currency(it.name))
         }
+    }
+
+    public fun GetDataToSave():List<Byte>{
+        return listOf(
+            currencies[currencyEnum.Paintings.index].amount.toByte(),
+            currencies[currencyEnum.ArtBucks.index].amount.toByte(),
+            clickAmount.toByte(),
+            sponsorLevel.toByte(),
+            apprenticeLevel.toByte(),
+            sellingLevel.toByte()
+        )
+    }
+    public fun SetDataFromSave(data:List<Byte>){
+        currencies[currencyEnum.Paintings.index].amount=data[0].toFloat()
+        currencies[currencyEnum.ArtBucks.index].amount=data[1].toFloat()
+        clickAmount=data[2].toInt()
+        sponsorLevel=data[3].toInt()
+        apprenticeLevel=data[4].toInt()
+        sellingLevel=data[5].toInt()
     }
 }
 

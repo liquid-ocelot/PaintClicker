@@ -24,16 +24,7 @@
                 android:text="ArtBucks Shop"
                 android:tag="startVisible"/>
 
-            <com.e.paintclicker.view.component.ShopItemComponent
-                android:id="@+id/getBetterAtArtItem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:description="Train Yourself : Sell paintings for more"
-                app:enabled="true"
-                app:icon="@drawable/icon_placeholder"
-                app:level="0"
-                app:price="50"
-                app:buttonTag="getBetterAtArtItem"/>
+
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/upgradeToolsItem"
@@ -43,7 +34,8 @@
                 app:enabled="true"
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
-                app:price="5"
+                app:price="50"
+                android:tag="startVisible"
                 app:buttonTag="upgradeToolsItem"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
@@ -54,7 +46,7 @@
                 app:enabled="true"
                 app:icon="@drawable/icon_placeholder"
                 app:level="0"
-                app:price="200"
+                app:price="20"
                 app:buttonTag="upgradeApprenticeItem"/>
 
             <TextView
@@ -65,6 +57,8 @@
                 android:layout_marginBottom="5dp"
                 android:text="Painting Shop"
                 android:tag="startVisible"/>
+
+
 
             <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/sellPaintingsUnlockItem"
@@ -78,6 +72,18 @@
                 app:buttonTag="sellPaintingsUnlockItem"/>
 
             <com.e.paintclicker.view.component.ShopItemComponent
+                android:id="@+id/getBetterAtArtItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="Train Yourself : Sell paintings for more"
+                app:enabled="true"
+                app:icon="@drawable/icon_placeholder"
+                app:level="0"
+                app:price="5"
+                android:tag="startVisible"
+                app:buttonTag="getBetterAtArtItem"/>
+
+            <com.e.paintclicker.view.component.ShopItemComponent
                 android:id="@+id/upgradeSponsorItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,17 +93,6 @@
                 app:level="0"
                 app:price="20"
                 app:buttonTag="upgradeSponsorItem"/>
-
-            <ListView
-                android:id="@+id/upgradeObtainedListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:tag="startVisible">
-
-            </ListView>
-
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

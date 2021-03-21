@@ -16,6 +16,7 @@ import com.e.paintclicker.control.currencyEnum
 import com.e.paintclicker.databinding.FragmentShopBinding
 import com.e.paintclicker.view.component.ShopItemComponent
 import org.w3c.dom.Text
+import java.io.File
 import kotlin.math.pow
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +39,8 @@ class ShopFragment : Fragment() {
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,6 +58,18 @@ class ShopFragment : Fragment() {
         val view = binding.root
         // Inflate the layout for this fragment
 
+        var setupAsUsual:Boolean=true
+        var directory: File
+        /*if(false){
+            directory= File(activity?.applicationContext?.getExternalFilesDir(null),"saves")
+        }
+        else{
+            directory= File(activity?.applicationContext?.filesDir,"saves")
+        }*/
+        val file= File(activity?.applicationContext?.filesDir, GameDataSingleton.playerName+".txt")
+        if(file.exists()){
+            setupAsUsual=false
+        }
         //binding.sellPaintingsUnlockItem.findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener { onBuyClick(it) }
 //shopLinearLayout
         //act on every
@@ -67,13 +82,31 @@ class ShopFragment : Fragment() {
                 (element as ShopItemComponent).findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener(
                     View.OnClickListener { onBuyClick(it) })
                 //only show items we want, hide the others
-                when(element.tag){
-                    "startVisible"->element.visibility=View.VISIBLE
-                    else->{
-                        element.visibility=View.INVISIBLE
-                        element.visibility=View.GONE
+                if(setupAsUsual||!GameDataSingleton.canSellPaintings) {
+                    when (element.tag) {
+                        "startVisible" -> element.visibility = View.VISIBLE
+                        else -> {
+                            element.visibility = View.INVISIBLE
+                            element.visibility = View.GONE
+                        }
                     }
                 }
+            }
+
+            //reload data and setup shop
+            binding.getBetterAtArtItem.setPrice(5f*1.1f.pow(GameDataSingleton.sellingLevel))
+            binding.getBetterAtArtItem.setLevel(GameDataSingleton.sellingLevel)
+            binding.upgradeSponsorItem.setPrice(20f*1.3f.pow(GameDataSingleton.sponsorLevel))
+            binding.upgradeSponsorItem.setLevel(GameDataSingleton.sponsorLevel)
+            binding.upgradeApprenticeItem.setPrice(20f*4f.pow(GameDataSingleton.apprenticeLevel))
+            binding.upgradeApprenticeItem.setLevel(GameDataSingleton.apprenticeLevel)
+            if(GameDataSingleton.canSellPaintings){
+                binding.sellPaintingsUnlockItem.visibility=View.GONE
+            }
+            binding.upgradeToolsItem.setPrice(5f*7f.pow(GameDataSingleton.clickAmount-1))
+            binding.upgradeToolsItem.setLevel(GameDataSingleton.clickAmount)
+            if(GameDataSingleton.clickAmount>=4){
+                binding.upgradeToolsItem.visibility=View.GONE
             }
         }
 
@@ -83,11 +116,11 @@ class ShopFragment : Fragment() {
     //Do stuff when the player presses a buy button
     private fun onBuyClick(view:View){
         when(view.tag){
-            "getBetterAtArtItem"->if(GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount>=50f*1.1f.pow(GameDataSingleton.sellingLevel)){
-                GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount-=50f*1.1f.pow(GameDataSingleton.sellingLevel)
+            "getBetterAtArtItem"->if(GameDataSingleton.currencies[currencyEnum.Paintings.index].amount>=5f*1.1f.pow(GameDataSingleton.sellingLevel)){
+                GameDataSingleton.currencies[currencyEnum.Paintings.index].amount-=5f*1.1f.pow(GameDataSingleton.sellingLevel)
                 GameDataSingleton.sellingLevel+=1
-                binding.getBetterAtArtItem.findViewById<Button>(R.id.shopItemBuyButton).text=(50f*1.1f.pow(GameDataSingleton.sellingLevel)).toString()
-                binding.getBetterAtArtItem.setPrice(50f*1.1f.pow(GameDataSingleton.sellingLevel))
+                binding.getBetterAtArtItem.findViewById<Button>(R.id.shopItemBuyButton).text=(5f*1.1f.pow(GameDataSingleton.sellingLevel)).toString()
+                binding.getBetterAtArtItem.setPrice(5f*1.1f.pow(GameDataSingleton.sellingLevel))
                 binding.getBetterAtArtItem.setLevel(GameDataSingleton.sellingLevel)
             }
             "upgradeSponsorItem"->if(GameDataSingleton.currencies[currencyEnum.Paintings.index].amount>=20f*1.3f.pow(GameDataSingleton.sponsorLevel)){
@@ -96,10 +129,10 @@ class ShopFragment : Fragment() {
                 binding.upgradeSponsorItem.setPrice(20f*1.3f.pow(GameDataSingleton.sponsorLevel))
                 binding.upgradeSponsorItem.setLevel(GameDataSingleton.sponsorLevel)
             }
-            "upgradeApprenticeItem"->if(GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount>=200f*3f.pow(GameDataSingleton.apprenticeLevel)){
-                GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount-=200f*1.5f.pow(GameDataSingleton.apprenticeLevel)
+            "upgradeApprenticeItem"->if(GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount>=20f*4f.pow(GameDataSingleton.apprenticeLevel)){
+                GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount-=20f*4f.pow(GameDataSingleton.apprenticeLevel)
                 GameDataSingleton.apprenticeLevel+=1
-                binding.upgradeApprenticeItem.setPrice(200f*1.5f.pow(GameDataSingleton.apprenticeLevel))
+                binding.upgradeApprenticeItem.setPrice(20f*4f.pow(GameDataSingleton.apprenticeLevel))
                 binding.upgradeApprenticeItem.setLevel(GameDataSingleton.apprenticeLevel)
 
             }
@@ -110,9 +143,11 @@ class ShopFragment : Fragment() {
                 binding.sellPaintingsUnlockItem.visibility=View.GONE
                 GameDataSingleton.canSellPaintings=true
             }
-            "upgradeToolsItem"->if(GameDataSingleton.currencies[currencyEnum.Paintings.index].amount>=5f*4f.pow(GameDataSingleton.clickAmount-1)){
-                GameDataSingleton.currencies[currencyEnum.Paintings.index].amount-=5f*4f.pow(GameDataSingleton.clickAmount-1)
+            "upgradeToolsItem"->if(GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount>=5f*7f.pow(GameDataSingleton.clickAmount-1)){
+                GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount-=5f*7f.pow(GameDataSingleton.clickAmount-1)
                 GameDataSingleton.clickAmount+=1
+                binding.upgradeToolsItem.setPrice(5f*7f.pow(GameDataSingleton.clickAmount-1))
+                binding.upgradeToolsItem.setLevel(GameDataSingleton.clickAmount)
                 if(GameDataSingleton.clickAmount>=4){
                     binding.upgradeToolsItem.visibility=View.GONE
                 }

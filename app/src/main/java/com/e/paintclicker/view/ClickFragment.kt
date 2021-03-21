@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import com.e.paintclicker.control.GameDataSingleton
+import com.e.paintclicker.control.currencyEnum
 import com.e.paintclicker.databinding.FragmentClickBinding
 import com.e.paintclicker.view.opengl.OpenglCanvas
 import com.e.paintclicker.view.opengl.Sprite
@@ -41,6 +43,7 @@ class ClickFragment : Fragment(), Runnable {
     var currentHiding = 0
     val hidingList: ArrayList<Sprite> = ArrayList<Sprite>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -68,13 +71,7 @@ class ClickFragment : Fragment(), Runnable {
                     when (e.action) {
 
                         MotionEvent.ACTION_DOWN -> {
-                            if(currentHiding < 10){
-                                hidingList[currentHiding].isVisible = false
-                                currentHiding++
-                            }else{
-                                for(s in hidingList)
-                                    s.isVisible = true; currentHiding = 0
-                            }
+                            clickLogic()
 
                         }
 
@@ -165,6 +162,24 @@ class ClickFragment : Fragment(), Runnable {
             opgl.renderer.drawLock.withLock {
                 opgl.renderer.drawCondition.await()
             }
+        }
+    }
+
+    fun clickLogic(){
+
+        if(currentHiding < 10){
+            hidingList[currentHiding].isVisible = false
+            currentHiding++
+        }else{
+
+            for(s in hidingList) {
+                s.isVisible = true;
+            }
+            currentHiding = 0
+
+            GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=1
+            binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()
+
         }
     }
 

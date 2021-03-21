@@ -119,6 +119,9 @@ class SpriteManager (val context: Context){
 
             for (s in spriteList) {
 
+                if(!s.isVisible)
+                    continue
+
                 if(!s.textureLoaded){
                     s.loadTextureFromAssets(context)
                 }

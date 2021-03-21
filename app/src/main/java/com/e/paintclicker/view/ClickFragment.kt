@@ -1,5 +1,6 @@
 package com.e.paintclicker.view
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,10 @@ import com.e.paintclicker.databinding.FragmentClickBinding
 import com.e.paintclicker.view.opengl.OpenglCanvas
 import com.e.paintclicker.view.opengl.Sprite
 import java.lang.ref.WeakReference
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.withLock
 
 // TODO: Rename parameter arguments, choose names that match
@@ -154,10 +159,39 @@ class ClickFragment : Fragment(), Runnable {
             spriteInitialized = true
         }
 
+        var registeredTime=Calendar.getInstance().timeInMillis
+        var apprenticeTime:Int=0
+        var clickTimer:Int=0
+        //Core game logic (drawing, var modification, etc
+        while(drawing){
 
-                while(drawing){
+            //every second, run game logic
+            if(registeredTime+1000<=Calendar.getInstance().timeInMillis){
+                registeredTime=Calendar.getInstance().timeInMillis
+                if(apprenticeTime>=10){
+                    apprenticeTime=0
+                    GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=GameDataSingleton.apprenticeLevel
+                }
+                else{
+                    apprenticeTime+=1
+                }
+                if(clickTimer>=10){
+                    clickTimer=0
+                    val temp= GameDataSingleton.clickAmount
+                    GameDataSingleton.clickAmount=1
+                    clickLogic()
+                    GameDataSingleton.clickAmount=temp
+                }
+                else{
+                    clickTimer+=1
+                }
 
 
+
+
+            }
+
+            //render
             opgl.requestRender()
             opgl.renderer.drawLock.withLock {
                 opgl.renderer.drawCondition.await()
@@ -166,23 +200,29 @@ class ClickFragment : Fragment(), Runnable {
     }
 
     fun clickLogic(){
-
-        if(currentHiding < 10){
-            hidingList[currentHiding].isVisible = false
-            currentHiding++
-        }else{
-
-            for(s in hidingList) {
-                s.isVisible = true;
+        for (i in 1..GameDataSingleton.clickAmount){
+            //Painting Completed
+            if(currentHiding >= 10){
+                for(s in hidingList) {
+                    s.isVisible = true;
+                }
+                currentHiding = 0
+                //Gain a painting
+                GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=1
+                binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()
+                //Gain artBucks by selling painting
+                if(GameDataSingleton.canSellPaintings) {
+                    GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount += GameDataSingleton.paintingWorth+GameDataSingleton.paintingWorth*(GameDataSingleton.sellingUpgrade*GameDataSingleton.sellingLevel)
+                    binding.currencyArtBucksTextView.text=GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount.toString()
+                }
             }
-            currentHiding = 0
-
-            GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=1
-            binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()
-
+            else {
+                hidingList[currentHiding].isVisible = false
+                currentHiding++
+                GameDataSingleton.currencies[currencyEnum.ArtBucks.index].amount +=GameDataSingleton.sponsorGain*GameDataSingleton.sponsorLevel
+            }
         }
     }
-
 
 
 

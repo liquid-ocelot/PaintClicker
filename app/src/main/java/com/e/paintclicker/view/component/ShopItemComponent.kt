@@ -13,11 +13,13 @@ import com.e.paintclicker.R
 
 //https://medium.com/mobile-app-development-publication/building-custom-component-with-kotlin-fc082678b080
 
+//Custom component that represents one item in the shop
 class ShopItemComponent (
         context: Context,
         attrs: AttributeSet
 ) : LinearLayout(context,attrs) {
-
+        
+        //getters and setters to access different ui elements
     public fun getPrice():Int{
         return (findViewById<Button>(R.id.shopItemBuyButton)).text.toString().toInt()
     }
@@ -30,6 +32,7 @@ class ShopItemComponent (
     public fun getBuyButton():Button{
         return this.findViewById<Button>(R.id.shopItemBuyButton)
     }
+        //initialisation of the ui with elements from custom attributes, each set up in the layout (here in the fragment_shop.xml)
     init {
         inflate(context, R.layout.shop_item_view, this)
 

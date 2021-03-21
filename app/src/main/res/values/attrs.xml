@@ -4,5 +4,7 @@
         <attr name="enabled" format="boolean"/>
         <attr name="icon" format="reference"/>
         <attr name="description" format="string"/>
+        <attr name="level" format="integer"/>
+        <attr name="price" format="integer"/>
     </declare-styleable>
 </resources>

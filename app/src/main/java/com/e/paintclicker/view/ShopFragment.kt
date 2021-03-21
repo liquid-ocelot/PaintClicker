@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.forEach
 import com.e.paintclicker.R
@@ -54,11 +55,10 @@ class ShopFragment : Fragment() {
         val view = binding.root
         // Inflate the layout for this fragment
 
-        binding.sellPaintingsUnlockItem.findViewById<Button>(R.id.shopItemBuyButton).setOnClickListener { onBuyClick(it) }
-
+//shopLinearLayout
         //act on every
-        for (i in 0..view.childCount){
-            val element=view.getChildAt(i)
+        for (i in 0..view.findViewById<LinearLayout>(R.id.shopLinearLayout).childCount){
+            val element=view.findViewById<LinearLayout>(R.id.shopLinearLayout).getChildAt(i)
             if(element is ShopItemComponent){
 
                 //link all OnClicks of the shopItems to the onBuyClick function
@@ -107,6 +107,7 @@ class ShopFragment : Fragment() {
                 binding.upgradeSponsorItem.visibility=View.VISIBLE
                 binding.upgradeApprenticeItem.visibility=View.VISIBLE
                 binding.sellPaintingsUnlockItem.visibility=View.GONE
+                GameDataSingleton.canSellPaintings=true
             }
             "upgradeToolsItem"->if(GameDataSingleton.currencies[currencyEnum.Paintings.index].amount>=5f*4f.pow(GameDataSingleton.clickAmount-1)){
                 GameDataSingleton.currencies[currencyEnum.Paintings.index].amount-=5f*4f.pow(GameDataSingleton.clickAmount-1)
@@ -114,6 +115,7 @@ class ShopFragment : Fragment() {
                 if(GameDataSingleton.clickAmount>=4){
                     binding.upgradeToolsItem.visibility=View.GONE
                 }
+                //binding.upgradeObtainedListView.add
             }
             else->{
 

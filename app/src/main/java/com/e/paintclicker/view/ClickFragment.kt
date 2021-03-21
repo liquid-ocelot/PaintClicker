@@ -120,6 +120,7 @@ class ClickFragment : Fragment(), Runnable {
         }
 
 
+
         if(!spriteInitialized) {
             val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
 
@@ -152,7 +153,6 @@ class ClickFragment : Fragment(), Runnable {
 
             spriteInitialized = true
         }
-
 
 
                 while(drawing){

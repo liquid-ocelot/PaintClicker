@@ -5,10 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".view.ShopFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent">
+
+
+
+            <com.e.paintclicker.view.component.ShopItemComponent
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:description="description of an item"
+                app:enabled="true"
+                app:icon="@drawable/ic_launcher_foreground" />
+
+    </ScrollView>
 
 </FrameLayout>

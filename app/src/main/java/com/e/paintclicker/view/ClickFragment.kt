@@ -14,6 +14,7 @@ import com.e.paintclicker.view.opengl.OpenglCanvas
 import com.e.paintclicker.view.opengl.Sprite
 import java.lang.ref.WeakReference
 import kotlin.concurrent.withLock
+import kotlin.random.Random
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +43,9 @@ class ClickFragment : Fragment(), Runnable {
 
     var currentHiding = 0
     val hidingList: ArrayList<Sprite> = ArrayList<Sprite>()
+    val paintingList:ArrayList<String> = arrayListOf("painting.jpg", "i2.jpg", "i3.jpg", "i2.jpg", "i4.jpg", "i5.jpg", "i6.jpg", "i7.jpg", "i8.jpg", "i9.jpg")
+
+    var painting:Sprite? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,7 +128,7 @@ class ClickFragment : Fragment(), Runnable {
         if(!spriteInitialized) {
             val chevalet = opgl.addSprite(300, 60, 0.0f, "chevalet.png", 2)
 
-            val painting = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2,
+            painting = opgl.addSprite(300 + 11 * 2, 60 + 118 * 2,
                     300 + 20 * 2, 60 + 189 * 2,
                     300 + 97 * 2, 60 + 90 * 2,
                     300 + 113 * 2, 60 + 171 * 2, 0.1f, "painting1.jpg")
@@ -177,10 +181,19 @@ class ClickFragment : Fragment(), Runnable {
             }
             currentHiding = 0
 
+            changePainting()
+
             GameDataSingleton.currencies[currencyEnum.Paintings.index].amount+=1
             binding.currencyPaintingTextView.text=GameDataSingleton.currencies[currencyEnum.Paintings.index].amount.toString()
 
         }
+    }
+
+
+    fun changePainting(){
+        val file = paintingList[Random.Default.nextInt(0, 10)]
+        painting!!.textureName = file
+        painting!!.textureLoaded = false
     }
 
 

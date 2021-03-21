@@ -43,7 +43,7 @@ class ClickFragment : Fragment(), Runnable {
 
     var currentHiding = 0
     val hidingList: ArrayList<Sprite> = ArrayList<Sprite>()
-    val paintingList:ArrayList<String> = arrayListOf("painting.jpg", "i2.jpg", "i3.jpg", "i2.jpg", "i4.jpg", "i5.jpg", "i6.jpg", "i7.jpg", "i8.jpg", "i9.jpg")
+    val paintingList:ArrayList<String> = arrayListOf("painting1.jpg", "i2.jpg", "i3.jpg", "i2.jpg", "i4.jpg", "i5.jpg", "i6.jpg", "i7.jpg", "i8.jpg", "i9.jpg")
 
     var painting:Sprite? = null
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.e.paintclicker.R
+import com.e.paintclicker.control.GameDataSingleton
 import com.e.paintclicker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        if(GameDataSingleton.playerName!=null&&GameDataSingleton.playerName!=""){
+            val intent = Intent(applicationContext, GameActivity::class.java)
+            startActivity(intent)
+        }
         binding.editUsername.addTextChangedListener( object:TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener { v ->
             val intent = Intent(applicationContext, GameActivity::class.java)
+
+            GameDataSingleton.playerName= binding.editUsername.text.toString()
             startActivity(intent)
         }
 

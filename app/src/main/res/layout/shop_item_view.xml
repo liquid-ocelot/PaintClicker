@@ -1,56 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/shopItemLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shopItemLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/shopItemIconImageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/ic_launcher_foreground"
-            tools:srcCompat="@drawable/icon_placeholder" />
+    <ImageView
+        android:id="@+id/shopItemIconImageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:srcCompat="@drawable/icon_placeholder" />
+
+    <TextView
+        android:id="@+id/shopItemDescriptionTextView"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:text="Description of the item"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/shopItemDescriptionTextView"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:text="Description of the item" />
-
-        <Button
-            android:id="@+id/shopItemBuyButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:insetLeft="5dp"
-            android:insetRight="5dp"
-            android:text="Buy" />
+            android:text="Level"
+            android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/shopItemCycleUpButton"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/shopItemLevelTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:insetLeft="5dp"
-            android:insetRight="5dp"
-            android:text="x1" />
-
+            android:text="0"
+            android:textSize="14sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/shopItemBuyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:width="50dp"
+        android:insetLeft="5dp"
+        android:insetRight="5dp"
+        android:text="Buy" />
+
+    <!--<Button
+        android:id="@+id/shopItemCycleUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:insetLeft="5dp"
+        android:insetRight="5dp"
+        android:text="x1" />-->
+
+</LinearLayout>
